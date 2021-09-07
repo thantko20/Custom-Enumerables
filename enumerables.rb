@@ -18,9 +18,10 @@ module Enumerable
     arr
   end
 
-  def my_all?(&block)
+  def my_all?(argv=nil, &block)
     match_all = true
     block = Proc.new { |item| item unless item.nil? || !item } unless block_given?
+    block = Proc.new { |item| item if argv === item} unless argv.nil?
     self.my_each { |item| match_all = false unless block.call(item) }
     match_all
   end
