@@ -8,4 +8,10 @@ module Enumerable
       yield k, v
     end
   end
+
+  def my_each_with_index
+    for i in 0..self.size-1 do
+      yield self[i], i
+    end
+  end
 end
