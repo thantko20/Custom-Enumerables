@@ -1,3 +1,5 @@
+require 'pry-byebug'
+
 module Enumerable
 
   def my_each
@@ -14,8 +16,16 @@ module Enumerable
 
   def my_select(&block)
     arr = []
-    self.my_each { |item| arr.push(item) if block.call(item) }
-    arr
+    hash = {}
+    
+    case self
+    when Array
+      self.my_each { |item| arr.push(item) if block.call(item) }
+      return arr
+    when Hash
+      self.my_each { |k, v| hash[k] = v if block.call(k, v) }
+      hash
+    end
   end
 
   def my_all?(argv=nil, &block)
