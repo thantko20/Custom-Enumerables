@@ -25,4 +25,17 @@ module Enumerable
     self.my_each { |item| match_all = false unless block.call(item) }
     match_all
   end
+
+  def my_any?(argv=nil, &block)
+    match_any = false
+    block = Proc.new { |item| item unless item.nil? || !item } unless block_given?
+    block = Proc.new { |item| item if argv === item} unless argv.nil?
+    self.my_each do |item|
+      if block.call(item)
+        match_any = true
+        break
+      end
+    end
+    match_any
+  end
 end
