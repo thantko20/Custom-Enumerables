@@ -17,4 +17,11 @@ module Enumerable
     self.my_each { |item| arr.push(item) if block.call(item) }
     arr
   end
+
+  def my_all?(&block)
+    match_all = true
+    block = Proc.new { |item| item unless item.nil? || !item } unless block_given?
+    self.my_each { |item| match_all = false unless block.call(item) }
+    match_all
+  end
 end
