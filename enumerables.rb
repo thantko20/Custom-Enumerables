@@ -64,7 +64,7 @@ module Enumerable
 
   def my_map(a_proc=nil)
     arr = []
-    unless a_proc.nil?
+    if a_proc
       self.my_each { |item| arr.push(a_proc.call(item)) }
       return arr
     end
