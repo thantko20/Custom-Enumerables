@@ -62,10 +62,13 @@ module Enumerable
     count
   end
 
-  def my_map(&block)
+  def my_map(a_proc=nil)
     arr = []
-    return unless block_given?
-    self.my_each { |item| arr.push(block.call(item)) }
+    unless a_proc.nil?
+      self.my_each { |item| arr.push(a_proc.call(item)) }
+      return arr
+    end
+    self.my_each { |item| arr.push(yield item) }
     arr
   end
 
