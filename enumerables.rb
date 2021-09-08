@@ -28,8 +28,8 @@ module Enumerable
     end
   end
 
-    # Below methods will work with only arrays but will not work if the array contains
-    # nil value
+  # Below methods will only work with arrays but will not work if the array contains
+  # nil value
   def my_all?(argv=nil, &block)
     block = Proc.new { |item| item unless item.nil? || !item } unless block_given?
     block = Proc.new { |item| item if argv === item} unless argv.nil?
@@ -60,5 +60,12 @@ module Enumerable
     block = Proc.new { |item| item if argv == item } unless argv.nil?
     self.my_each { |item| count += 1 if block.call(item) }
     count
+  end
+
+  def my_map(&block)
+    arr = []
+    return unless block_given?
+    self.my_each { |item| arr.push(block.call(item)) }
+    arr
   end
 end
