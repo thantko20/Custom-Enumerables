@@ -48,4 +48,17 @@ module Enumerable
     end
     match_any
   end
+
+  def my_none?(argv=nil, &block)
+    match_none = true
+    block = Proc.new { |item| item unless item.nil? || !item } unless block_given?
+    block = Proc.new { |item| item if argv === item} unless argv.nil?
+    self.my_each do |item|
+      if block.call(item)
+        match_none = false
+        break
+      end
+    end
+    match_none
+  end
 end
