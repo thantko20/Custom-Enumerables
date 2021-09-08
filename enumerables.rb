@@ -28,6 +28,8 @@ module Enumerable
     end
   end
 
+    # Below methods will work with only arrays but will not work if the array contains
+    # nil value
   def my_all?(argv=nil, &block)
     match_all = true
     block = Proc.new { |item| item unless item.nil? || !item } unless block_given?
@@ -60,5 +62,13 @@ module Enumerable
       end
     end
     match_none
+  end
+
+  def my_count(argv=nil, &block)
+    count = 0
+    return self.size if !block_given? && argv.nil?
+    block = Proc.new { |item| item if argv == item } unless argv.nil?
+    self.my_each { |item| count += 1 if block.call(item) }
+    count
   end
 end
