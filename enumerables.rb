@@ -73,6 +73,7 @@ module Enumerable
   end
 
   # my_inject method only works when given block
+  # still left to implement symbol parameter
   def my_inject(accumulator=nil, &block)
     self.class == Range ? arr = self.to_a : arr = self
     if block_given?
