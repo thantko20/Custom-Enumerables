@@ -73,12 +73,18 @@ module Enumerable
   end
 
   # my_inject method only works when given block
-  def my_inject(&block)
-    accumulator = self.first
+  def my_inject(accumulator=nil, &block)
     self.class == Range ? arr = self.to_a : arr = self
     if block_given?
-      for i in 0..arr.size-2
-        accumulator = block.call(accumulator, arr[i+1])
+      if accumulator.nil?
+        accumulator = self.first
+        for i in 0..arr.size-2
+          accumulator = block.call(accumulator, arr[i+1])
+        end
+      elsif accumulator
+        for i in 0..arr.size-1
+          accumulator = block.call(accumulator, arr[i])
+        end
       end
     end
     accumulator
