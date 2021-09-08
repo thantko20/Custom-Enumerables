@@ -68,4 +68,16 @@ module Enumerable
     self.my_each { |item| arr.push(block.call(item)) }
     arr
   end
+
+  # my_inject method only works when given block
+  def my_inject(&block)
+    accumulator = self.first
+    self.class == Range ? arr = self.to_a : arr = self
+    if block_given?
+      for i in 0..arr.size-2
+        accumulator = block.call(accumulator, arr[i+1])
+      end
+    end
+    accumulator
+  end
 end
