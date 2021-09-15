@@ -53,8 +53,9 @@ puts ''
 
 puts "-------- #my_map vs #map --------"
 a_proc = Proc.new { |el| el.to_s }
-# p arr.my_map a_proc => ["1", "2", "3", "4"]
-p arr.my_map { |i| i * 2 }
+p arr.my_map(a_proc) # => ["1", "2", "3", "4"]
+p arr.my_map(a_proc) { |i| i * 2 } # => ["1", "2", "3", "4"]
+p arr.my_map { |i| i * 2 } # => [2, 4, 6, 8]
 p arr.map { |i| i * 2 }
 puts ''
 

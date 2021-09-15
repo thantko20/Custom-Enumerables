@@ -1,20 +1,24 @@
-require 'pry-byebug'
-
 module Enumerable
 
   def my_each
+    return to_enum(:my_each) unless block_given?
+
     for k, v in self do
       yield k, v
     end
   end
 
   def my_each_with_index
+    return to_enum(:my_each_with_index) unless block_given?
+
     for i in 0..self.size-1 do
       yield self[i], i
     end
   end
 
   def my_select(&block)
+    return to_enum(:my_select) unless block_given?
+
     arr = []
     hash = {}
     
